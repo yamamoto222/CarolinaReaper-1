@@ -1,6 +1,7 @@
 package servlet;
 
 //eventEdit.jsp
+//イベントページ
 
 import java.io.IOException;
 

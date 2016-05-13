@@ -61,10 +61,12 @@ public class EventCreation extends HttpServlet {
 		String deadlineDayYearS = request.getParameter("deadlineYear"); // 締切日　年
 		String deadlineDayMonthS = request.getParameter("deadlineDayMonth"); //締切日　月
 		String deadlineDateS = request.getParameter("deadlineDay"); //締切日　日
-		String year = request.getParameter("year"); // 年 日程候補日
-		String month = request.getParameter("month"); // 月　日程候補日
-		String day = request.getParameter("day"); // 日　日程候補日
-		String hour = request.getParameter("hour"); // 時間
+
+
+		String yearS = request.getParameter("year"); // 年 日程候補日
+		String monthS = request.getParameter("month"); // 月　日程候補日
+		String dateS = request.getParameter("day"); // 日　日程候補日
+		String hourS = request.getParameter("hour"); // 時間
 
 
 
@@ -132,6 +134,21 @@ public class EventCreation extends HttpServlet {
 				registDay, autherName, autherPass, deadlineDay,
 				autherRemark, determinedDay, determinedFlag, eventOpenFlga,
 				numberOfEvent, eventUrl, eventPageFileName, pricePerPerson);
+
+
+		//候補日Stringからintへ
+		int year = Integer.parseInt(yearS);
+		int month= Integer.parseInt(monthS);
+		int date = Integer.parseInt(dateS);
+		int hour = Integer.parseInt(hourS);
+
+
+		//候補日
+		Calendar Candidate = Calendar.getInstance();
+		Event.setYear(Candidate,year);
+		Event.setMonth(Candidate, month);
+		Event.setDate(Candidate, date);
+		Event.setHour(Candidate, hour);
 
 
 
