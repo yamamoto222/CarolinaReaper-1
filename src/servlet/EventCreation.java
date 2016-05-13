@@ -54,7 +54,7 @@ public class EventCreation extends HttpServlet {
 		String autherName = request.getParameter("autherName"); // イベント製作者の名前
 		String autherPass = request.getParameter("autherPass"); //イベント製作者の編集用パスワード
 		String autherRemarkA = request.getParameter("autherRemark"); // イベント製作者の備考欄
-		String eventOpenFlgaS = request.getParameter("eventOpenFlga"); // イベントの公開フラグ.1:公開,0:非公開
+		String eventOpenFlagS = request.getParameter("eventOpenFlag"); // イベントの公開フラグ.1:公開,0:非公開
 		String numberOfEvent = request.getParameter("numberOfEvent");//イベント会数
 		String pricePerPersonA = request.getParameter("pricePerPerson"); // イベント一人当たりの料金
 
@@ -115,7 +115,7 @@ public class EventCreation extends HttpServlet {
 
 
 		//イベント公開・非公開
-		int eventOpenFlga = Integer.parseInt(eventOpenFlgaS);
+		int eventOpenFlag = Integer.parseInt(eventOpenFlagS);
 
 
 		//URL
@@ -132,7 +132,7 @@ public class EventCreation extends HttpServlet {
 		//Eventインスタンスの生成
 		Event event = new Event(eventName, organizarName, eventVenue,
 				registDay, autherName, autherPass, deadlineDay,
-				autherRemark, determinedDay, determinedFlag, eventOpenFlga,
+				autherRemark, determinedDay, determinedFlag, eventOpenFlag,
 				numberOfEvent, eventUrl, eventPageFileName, pricePerPerson);
 
 
