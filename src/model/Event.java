@@ -171,41 +171,41 @@ public class Event  {
 	}
 
 	public int getDeadlineYear(){
-		return getYear(registDay);
+		return getYear(deadlineDay);
 	}
 	public int getDeadlineMonth(){
-		return getMonth(registDay);
+		return getMonth(deadlineDay);
 	}
 	public int getDeadlineDate(){
-		return getDate(registDay);
+		return getDate(deadlineDay);
 	}
 	public int getDeadlineHour(){
-		return getHour(registDay);
+		return getHour(deadlineDay);
 	}
 	public int getDeadlineMinute(){
-		return getMinute(registDay);
+		return getMinute(deadlineDay);
 	}
 	public int getDeadlineSecond(){
-		return getSecond(registDay);
+		return getSecond(deadlineDay);
 	}
 
 	public void setDeadlineYear(int year){
-		setYear(this.registDay ,year);
+		setYear(this.deadlineDay ,year);
 	}
 	public void setDeadlineMonth(int month){
-		setMonth(this.registDay ,month);
+		setMonth(this.deadlineDay ,month);
 	}
 	public void setDeadlineDate(int date){
-		setDate(this.registDay ,date);
+		setDate(this.deadlineDay ,date);
 	}
 	public void setDeadlineHour(int hour){
-		setHour(this.registDay ,hour);
+		setHour(this.deadlineDay ,hour);
 	}
 	public void setDeadlineMinute(int minute){
-		setMinute(this.registDay ,minute);
+		setMinute(this.deadlineDay ,minute);
 	}
 	public void setDeadlineSeconde(int second){
-		setSecond(this.registDay ,second);
+		setSecond(this.deadlineDay ,second);
 	}
 
 	public ArrayList<String> getAutherRemark() {

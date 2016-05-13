@@ -4,6 +4,8 @@ package servlet;
 //イベントページ
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Calendar;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
@@ -91,7 +93,7 @@ public class EventEditServlet extends HttpServlet {
 			//パスワードが合っているかどうか
 			ServletContext application = this.getServletContext();
 			BordItems b = (BordItems) application.getAttribute("bordItems");
-			boolean userCheck = b.isuserPassEquals(userPassCheck);
+			boolean userCheck = b.isUserPassEquals(userPassCheck);
 
 
 			//パスワードがあっていたら編集可能になる
@@ -120,8 +122,23 @@ public class EventEditServlet extends HttpServlet {
 			String userPass = request.getParameter("userPass");//一般投稿者パスワード
 			String userRemark = request.getParameter("userRemark");//備考
 
+			//投稿ID
+			String itemId = "";
+
+			//参加日選択
+			ArrayList<Calendar> preferredDaySet = new ArrayList<Calendar>();
+			preferredDaySet.add(aaaaaa);
+
+			//
+			ArrayList<Integer> preferredFlagSet = new ArrayList<Integer>();
+			preferredFlagSet.add(1233);
+
+			//投稿日時
+			Calendar  userRegistDay = Calendar.getInstance();
+
 			//BordItemsインスタンスの生成
-			BordItems bordItems = new BordItems(userName,userPass,userRemark);
+			BordItems bordItems = new BordItems(itemId,preferredDaySet, preferredFlagSet,
+					userName, userPass, userRemark, userRegistDay);
 
 
 			//セッションスコープに保存

@@ -101,10 +101,6 @@ public class EventCreation extends HttpServlet {
 
 		//締切日
 		Calendar deadlineDay = Calendar.getInstance();
-		Event.setYear(deadlineDay,deadlineDayYear);
-		Event.setMonth(deadlineDay, deadlineDayMonth);
-		Event.setDate(deadlineDay, deadlineDate);
-
 
 		//確定日時
 		Calendar determinedDay =  Calendar.getInstance();
@@ -151,6 +147,12 @@ public class EventCreation extends HttpServlet {
 		Event.setHour(Candidate, hour);
 
 
+		//締切日をセットするよー！
+		event.setDeadlineYear(deadlineDayYear);
+		event.setDeadlineMonth(deadlineDayMonth);
+		event.setDeadlineDate(deadlineDate);
+
+
 
 		//セッションスコープに保存
 		HttpSession session = request.getSession();
@@ -163,7 +165,7 @@ public class EventCreation extends HttpServlet {
 
 
 		//フォワード(イベント作成決定後のページ）
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/eventConfirmed.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/eventconfirmed.jsp");
 		dispatcher.forward(request, response);
 
 
