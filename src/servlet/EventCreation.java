@@ -7,12 +7,12 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import model.Event;
 
@@ -134,9 +134,10 @@ public class EventCreation extends HttpServlet {
 				numberOfEvent, eventUrl, eventPageFileName, pricePerPerson);
 
 
-		//アプリケーションスコープに保存
-		ServletContext application = this.getServletContext();
-		application.setAttribute("event",event);
+
+		//セッションスコープに保存
+		HttpSession session = request.getSession();
+		session.setAttribute("event",event);
 
 
 

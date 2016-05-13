@@ -123,9 +123,10 @@ public class EventEditServlet extends HttpServlet {
 			BordItems bordItems = new BordItems(userName,userPass,userRemark);
 
 
-			//アプリケーションスコープに保存
-			ServletContext application = this.getServletContext();
-			application.setAttribute("bordItems",bordItems);
+			//セッションスコープに保存
+			HttpSession session = request.getSession();
+			session.setAttribute("bordItems",bordItems);
+
 
 
 			//DAOの利用
