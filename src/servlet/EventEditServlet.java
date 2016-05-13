@@ -5,6 +5,7 @@ package servlet;
 import java.io.IOException;
 
 import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -14,6 +15,7 @@ import javax.servlet.http.HttpSession;
 
 import model.BordItems;
 import model.Event;
+
 
 /**
  * Servlet implementation class EventEditServlet
@@ -49,17 +51,19 @@ public class EventEditServlet extends HttpServlet {
 		//リクエストパラメータから取得
 		request.setCharacterEncoding("UTF-8");
 		String action = request.getParameter("action");
-		String autherPass = request.getParameter("autherPass"); //幹事用パス
+		String autherPassCheck = request.getParameter("autherPass"); //幹事用パス
 
 
 		//イベント情報の変更（幹事）が押されたとき
 		if (action == null){
 
 		//幹事用パスがあっているかどうかのロジック
-			boolean isAutherPassEquals = Event.isAutherPassEquals(autherPass);
+			ServletContext application = this.getServletContext();
+			Event e = (Event) application.getAttribute("event");
+			boolean autherCheck = e.isAutherPassEquals(autherPassCheck);
 
 
-			if (isAutherPassEquals == false){
+			if (autherCheck == false){
 
 				int confirmation = 0;
 
@@ -81,18 +85,21 @@ public class EventEditServlet extends HttpServlet {
 		}else if (action.equals("edit")){ //一般投稿者が編集ボタン押したとき
 			//リクエストパラメータの取得（一般投稿者用パス）
 			request.setCharacterEncoding("UTF-8");
-			String userPass = request.getParameter("userPass");
+			String userPassCheck = request.getParameter("userPass");
 
 			//パスワードが合っているかどうか
-			boolean isuserPassEquals = BordItems.isuserPassEquals(userPass);
+			ServletContext application = this.getServletContext();
+			BordItems b = (BordItems) application.getAttribute("bordItems");
+			boolean userCheck = b.isuserPassEquals(userPassCheck);
+
 
 			//パスワードがあっていたら編集可能になる
 			//間違っていたらちがうよーってでるのを書きたい
 			int confirmation = 0;
-			//セッションスコープに値を入れて、その値次第で表示を変えるってどうかなあああああ
-			if(isuserPassEquals == false){
+			//セッションスコープに値を入れて、その値次第で表示を変えるってどうかなあああああああああああああああ
+			if(userCheck == false){
 				confirmation = 1;
-			}else if (isuserPassEquals == true){
+			}else if (userCheck == true){
 				confirmation = 2;
 			}
 
@@ -114,6 +121,11 @@ public class EventEditServlet extends HttpServlet {
 
 			//BordItemsインスタンスの生成
 			BordItems bordItems = new BordItems(userName,userPass,userRemark);
+
+
+			//アプリケーションスコープに保存
+			ServletContext application = this.getServletContext();
+			application.setAttribute("bordItems",bordItems);
 
 
 			//DAOの利用
