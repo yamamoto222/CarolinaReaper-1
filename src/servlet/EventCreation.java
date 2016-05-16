@@ -177,7 +177,7 @@ public class EventCreation extends HttpServlet {
 
 
 		//フォワード(イベント作成決定後のページ）
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/eventconfirmed.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/eventconfirmed.jsp");
 		dispatcher.forward(request, response);
 
 
