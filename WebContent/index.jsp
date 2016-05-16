@@ -53,7 +53,7 @@
 	</tr>
 	<tr>
 		<th>イベント作成者</th>
-		<td><input type="text" name="autherRemark" size="40"  maxlength="20"></label></td >
+		<td><input type="text" name="autherName" size="40"  maxlength="20"></label></td >
 	</tr>
 	<tr>
 		<th>場所：</th>

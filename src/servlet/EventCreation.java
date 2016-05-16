@@ -49,7 +49,7 @@ public class EventCreation extends HttpServlet {
 		//リクエストパラメータの取得(新規イベント作成）
 		request.setCharacterEncoding("UTF-8");
 		String eventName = request.getParameter("eventName"); // イベント名
-		String organizarNameA = request.getParameter("organizarName"); // 幹事の名前
+		String organizarName = request.getParameter("organizarName"); // 幹事の名前
 		String eventVenueA = request.getParameter("eventVenue"); // 場所
 		String autherName = request.getParameter("autherName"); // イベント製作者の名前
 		String autherPass = request.getParameter("autherPass"); //イベント製作者の編集用パスワード
@@ -63,16 +63,11 @@ public class EventCreation extends HttpServlet {
 		String deadlineDateS = request.getParameter("deadlineDay"); //締切日　日
 
 
-		String yearS = request.getParameter("year"); // 年 日程候補日
-		String monthS = request.getParameter("month"); // 月　日程候補日
-		String dateS = request.getParameter("day"); // 日　日程候補日
-		String hourS = request.getParameter("hour"); // 時間
+		String[] yearS = request.getParameterValues("year"); // 年 日程候補日
+		String[] monthS = request.getParameterValues("month"); // 月　日程候補日
+		String[] dateS = request.getParameterValues("day"); // 日　日程候補日
+		String[] hourS = request.getParameterValues("hour"); // 時間
 
-
-
-		//幹事の名前
-		ArrayList<String> organizarName = new ArrayList<String>();
-		organizarName.add(organizarNameA);
 
 
 		//イベントの場所
@@ -94,13 +89,9 @@ public class EventCreation extends HttpServlet {
 		Calendar  registDay = Calendar.getInstance();
 
 
-		//締め切り日時Stringからintへ
-		int deadlineDayYear = Integer.parseInt(deadlineDayYearS);
-		int deadlineDayMonth= Integer.parseInt(deadlineDayMonthS);
-		int deadlineDate = Integer.parseInt(deadlineDateS);
-
 		//締切日
 		Calendar deadlineDay = Calendar.getInstance();
+
 
 		//確定日時
 		Calendar determinedDay =  Calendar.getInstance();
@@ -122,36 +113,48 @@ public class EventCreation extends HttpServlet {
 		String eventPageFileName = "NO DATA";
 
 
-
+		//候補日
+		ArrayList<Calendar> candidate = new ArrayList<Calendar>();
 
 
 		//Eventインスタンスの生成
 		Event event = new Event(eventName, organizarName, eventVenue,
-				registDay, autherName, autherPass, deadlineDay,
-				autherRemark, determinedDay, determinedFlag, eventOpenFlag,
-				numberOfEvent, eventUrl, eventPageFileName, pricePerPerson);
-
-
-		//候補日Stringからintへ
-		int year = Integer.parseInt(yearS);
-		int month= Integer.parseInt(monthS);
-		int date = Integer.parseInt(dateS);
-		int hour = Integer.parseInt(hourS);
-
+			registDay, autherName, autherPass, deadlineDay,
+			autherRemark, determinedDay, determinedFlag, eventOpenFlag,
+			numberOfEvent, eventUrl, eventPageFileName, pricePerPerson,
+			candidate);
 
 		//候補日
-		Calendar Candidate = Calendar.getInstance();
-		Event.setYear(Candidate,year);
-		Event.setMonth(Candidate, month);
-		Event.setDate(Candidate, date);
-		Event.setHour(Candidate, hour);
+		for (int i = 0; i < yearS.length; i++){
+
+			//候補日Stringからintへ
+			int year = Integer.parseInt(yearS[i]);
+			int month= Integer.parseInt(monthS[i]);
+			int date = Integer.parseInt(dateS[i]);
+			int hour = Integer.parseInt(hourS[i]);
+
+			month -= 1;
+
+			Calendar candidateA = Calendar.getInstance();
+			Event.setYear(candidateA, year);
+			Event.setMonth(candidateA, month);
+			Event.setDate(candidateA, date);
+			Event.setHour(candidateA, hour);
+
+			event.addCandidate(candidateA);
+		}
 
 
-		//締切日をセットするよー！
+		//締め切り日時Stringからintへ
+		int deadlineDayYear = Integer.parseInt(deadlineDayYearS);
+		int deadlineDayMonth= Integer.parseInt(deadlineDayMonthS);
+		int deadlineDate = Integer.parseInt(deadlineDateS);
+
+
+		//締切日をセット
 		event.setDeadlineYear(deadlineDayYear);
-		event.setDeadlineMonth(deadlineDayMonth);
+		event.setDeadlineMonth(deadlineDayMonth-1);
 		event.setDeadlineDate(deadlineDate);
-
 
 
 		//セッションスコープに保存
@@ -160,8 +163,17 @@ public class EventCreation extends HttpServlet {
 
 
 
-		//DAOの利用
+/*		//DAOの利用
+		try{
+			EventDAO eventDao = new EventDAO;
+			ArrayList<EventDto> table = dao.findAll();
 
+			request.setAttribute("table", table);
+			request.getRequestDispatcher("アドレス").forward(request, response);
+		} catch(Expention e){
+			throw new ServletException(e);
+		}
+*/
 
 
 		//フォワード(イベント作成決定後のページ）
