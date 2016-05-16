@@ -135,12 +135,14 @@ public class EventCreation extends HttpServlet {
 
 			month -= 1;
 
+			//Calendarクラスにまとめる
 			Calendar candidateA = Calendar.getInstance();
 			Event.setYear(candidateA, year);
 			Event.setMonth(candidateA, month);
 			Event.setDate(candidateA, date);
 			Event.setHour(candidateA, hour);
 
+			//ArrayListにいれる
 			event.addCandidate(candidateA);
 		}
 
@@ -150,11 +152,14 @@ public class EventCreation extends HttpServlet {
 		int deadlineDayMonth= Integer.parseInt(deadlineDayMonthS);
 		int deadlineDate = Integer.parseInt(deadlineDateS);
 
+		deadlineDayMonth -= 1;
+
 
 		//締切日をセット
 		event.setDeadlineYear(deadlineDayYear);
-		event.setDeadlineMonth(deadlineDayMonth-1);
+		event.setDeadlineMonth(deadlineDayMonth);
 		event.setDeadlineDate(deadlineDate);
+
 
 
 		//セッションスコープに保存
