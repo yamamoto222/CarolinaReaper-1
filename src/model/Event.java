@@ -389,7 +389,7 @@ public class Event  {
 	}
 
 	public  static void setMonth(Calendar cal,int n){
-		if(n>0) cal.set(Calendar.MONTH, n);
+		if(n>=0) cal.set(Calendar.MONTH, n);
 		else cal.set(Calendar.MONTH, Calendar.MONTH );
 	}
 

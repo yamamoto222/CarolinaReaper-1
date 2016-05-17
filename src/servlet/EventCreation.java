@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import model.CreateAndAnnihilateEventPage;
 import model.Event;
 
 /**
@@ -125,13 +126,18 @@ public class EventCreation extends HttpServlet {
 			candidate);
 
 		//候補日
-		for (int i = 0; i < yearS.length; i++){
+		for (int i = 1; i < yearS.length; i++){
+
+			String a = yearS[i];
+			String b = monthS[i];
+			String c = dateS[i];
+			String d = hourS[i];
 
 			//候補日Stringからintへ
-			int year = Integer.parseInt(yearS[i]);
-			int month= Integer.parseInt(monthS[i]);
-			int date = Integer.parseInt(dateS[i]);
-			int hour = Integer.parseInt(hourS[i]);
+			int year = Integer.parseInt(a);
+			int month= Integer.parseInt(b);
+			int date = Integer.parseInt(c);
+			int hour = Integer.parseInt(d);
 
 			month -= 1;
 
@@ -154,11 +160,14 @@ public class EventCreation extends HttpServlet {
 
 		deadlineDayMonth -= 1;
 
-
 		//締切日をセット
 		event.setDeadlineYear(deadlineDayYear);
 		event.setDeadlineMonth(deadlineDayMonth);
 		event.setDeadlineDate(deadlineDate);
+
+
+		//URL
+		CreateAndAnnihilateEventPage.createEventPageUrl(event);
 
 
 

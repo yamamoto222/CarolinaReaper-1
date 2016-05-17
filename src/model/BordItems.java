@@ -5,7 +5,6 @@ import java.util.Calendar;
 public class BordItems {
 	//----------Fields----------
 	private String itemId;//投稿ID
-	private ArrayList<Calendar>  preferredDaySet; //希望日の集合
 	private ArrayList<Integer> preferredFlagSet;//希望日時ごとのフラグ 1:参加,0:不参加(初期値), 2:△
 	private String userName; //投稿者の名前
 	private String userPass;//編集用のpass
@@ -16,11 +15,10 @@ public class BordItems {
 
 
 	//----------Constructor----------
-	public BordItems(String itemId, ArrayList<Calendar> preferredDaySet, ArrayList<Integer> preferredFlagSet,
+	public BordItems(String itemId, ArrayList<Integer> preferredFlagSet,
 			String userName, String userPass, String userRemark, Calendar userRegistDay) {
 		super();
 		this.itemId = String.valueOf(itemCounter);
-		this.preferredDaySet = preferredDaySet;
 		this.preferredFlagSet = preferredFlagSet;
 		this.userName = userName;
 		this.userPass = userPass;
@@ -38,15 +36,6 @@ public class BordItems {
 	public void setItemId(String itemId) {
 		this.itemId = itemId;
 	}
-
-	public ArrayList<Calendar> getPreferredDaySet() {//ArrayList型を返すことに注意
-		return preferredDaySet;
-	}
-
-	public void addPreferredDaySet(Calendar preferredDay) {//preferredDaySetにCalendarクラスを一つ追加
-		this.preferredDaySet.add(preferredDay);
-	}
-
 
 	public ArrayList<Integer> getPreferredFlagSet() {
 		return preferredFlagSet;

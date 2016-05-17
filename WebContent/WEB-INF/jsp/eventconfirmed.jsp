@@ -38,26 +38,35 @@ Event redpepper = (Event) session.getAttribute("event");
 	<tr>
 		<th>投稿締切日：</th>
 		<td><%= redpepper.getDeadlineYear() %>年
-			<%= redpepper.getDeadlineMonth() %>月
+			<%= redpepper.getDeadlineMonth()+1 %>月
 			<%= redpepper.getDeadlineDate() %>日</td>
 	</tr>
 	<tr>
 	<th>日程候補：</th>
+	<td><%= redpepper.getCandidate().size() %>日分の日程候補</td>
+	</tr>
 	<% for (int i = 0; i < redpepper.getCandidate().size(); i++) {%>
+		<tr>
+		<th></th>
 		<td><%= Event.getYear(redpepper.getCandidateElement(i)) %>年
-		<td><%= Event.getMonth(redpepper.getCandidateElement(i)) %>月
+		<td><%= Event.getMonth(redpepper.getCandidateElement(i))+1 %>月
 		<td><%= Event.getDate(redpepper.getCandidateElement(i)) %>日
-		<td><%= Event.getHour(redpepper.getCandidateElement(i)) %>時
-		</td>
+		<td><%= Event.getHour(redpepper.getCandidateElement(i)) %>時</td>
+		</tr>
 	<% } %>
-	 </tr>
 	 <tr>
 		<th> 備考：</th>
 		<td><%= redpepper.getAutherRemark() %></td>
 	</tr>
 
+	<tr>
+		<th> URL：</th>
+		<td><%= redpepper.getEventUrl() %></td>
+	</tr>
+
+
 </table>
 <p>URLを表示します
-<a href=""></a></p>
+<a href=redpepper.getEventUrl()></a></p>
 </body>
 </html>
